@@ -22,7 +22,16 @@
      apt: 
       name: php7.2
       state: present 
-     
+   - name: create phpinfo file
+     file:
+       path: "/var/www/html/info.php"
+       state: touch
+       owner: www-data     
+   - name: write phpinfo to info.php file
+     lineinfile:
+      path: /var/www/html/info.php
+      line: <?php phpinfo(); ?>
+      create: yes
 
   handlers:
     - name: restart  apache
