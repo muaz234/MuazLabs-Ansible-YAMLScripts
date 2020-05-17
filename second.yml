@@ -4,24 +4,26 @@
 
 - name: sample
   hosts: webserver
+  gather_facts: false
   tasks:
    - name: update and upgrade
      become: true
      apt:
-       upgrade: yes
+       upgrade: 'yes'
        update_cache: yes
-   - name: install webserver
+   - name: install packages
      apt: 
-       name: apache2
+       name:
+         - apache2
+         - php7.2
+         - git
+         - mysql-server
        state: present
+       autoclean: yes 
    - name: start webserver
      apt: 
        name: apache2
        state: present
-   - name: install php
-     apt: 
-      name: php7.2
-      state: present 
    - name: create phpinfo file
      file:
        path: "/var/www/html/info.php"
