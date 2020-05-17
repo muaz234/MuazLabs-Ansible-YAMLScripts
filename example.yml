@@ -1,0 +1,31 @@
+
+
+---
+
+- name: sample
+  hosts: webserver
+  tasks:
+   - name: update and upgrade
+     become: true
+     apt:
+       upgrade: yes
+       update_cache: yes
+   - name: install webserver
+     apt: 
+       name: apache2
+       state: present
+   - name: start webserver
+     apt: 
+       name: apache2
+       state: present
+   - name: install php
+     apt: 
+      name: php7.2
+      state: present 
+     
+
+  handlers:
+    - name: restart  apache
+      service: 
+        name: apache2
+        state: restarted 
